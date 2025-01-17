@@ -18,7 +18,6 @@ class AppThemes {
 
 
   
-
   // This is DarkTheme config use
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,

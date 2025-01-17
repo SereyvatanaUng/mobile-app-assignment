@@ -12,7 +12,7 @@ class InstagramHome extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(theme, context),
       body: _buildBody(theme),
-      bottomNavigationBar: _buildFooter(theme),
+      bottomNavigationBar: _buildFooter(theme, context),
     );
   }
 
@@ -29,10 +29,9 @@ class InstagramHome extends StatelessWidget {
       backgroundColor: theme.appBarTheme.backgroundColor,
       actions: [
         IconButton(
-          icon: Icon(
-            themeLogic.mode == ThemeMode.dark
-            ? Icons.dark_mode_outlined : Icons.light_mode_outlined
-          ),
+          icon: Icon(themeLogic.mode == ThemeMode.dark
+              ? Icons.dark_mode_outlined
+              : Icons.light_mode_outlined),
           iconSize: 30,
           onPressed: () {
             // Toggle between light and dark mode
@@ -78,44 +77,58 @@ class InstagramHome extends StatelessWidget {
     );
   }
 
-  Widget _buildFooter(ThemeData theme) {
+  Widget _buildFooter(ThemeData theme, BuildContext context) {
+    final themeLogic = Provider.of<ThemeLogic>(context);
+
     return BottomAppBar(
       color: theme.appBarTheme.backgroundColor,
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.home_filled),
-            iconSize: 30,
-            color: theme.appBarTheme.foregroundColor,
+      height: 70,
+      clipBehavior: Clip.antiAlias,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: themeLogic.mode == ThemeMode.dark
+                  ? Colors.grey.shade900
+                  : Colors.grey.shade200,
+            ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-            iconSize: 30,
-            color: theme.appBarTheme.foregroundColor,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            iconSize: 30,
-            color: theme.appBarTheme.foregroundColor,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.slow_motion_video_sharp),
-            iconSize: 30,
-            color: theme.appBarTheme.foregroundColor,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.account_circle),
-            iconSize: 30,
-            color: theme.appBarTheme.foregroundColor,
-          ),
-        ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.home_filled),
+              iconSize: 30,
+              color: theme.appBarTheme.foregroundColor,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+              iconSize: 30,
+              color: theme.appBarTheme.foregroundColor,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              iconSize: 30,
+              color: theme.appBarTheme.foregroundColor,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.slow_motion_video_sharp),
+              iconSize: 30,
+              color: theme.appBarTheme.foregroundColor,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.account_circle),
+              iconSize: 30,
+              color: theme.appBarTheme.foregroundColor,
+            ),
+          ],
+        ),
       ),
     );
   }
