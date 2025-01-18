@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_assignment/homeScreen/card_user_screen.dart';
+import 'package:mobile_app_assignment/homeScreen/history_view_user.dart';
 import 'package:mobile_app_assignment/theme/theme_provioder.dart';
 import 'package:provider/provider.dart';
 
@@ -61,18 +63,12 @@ class InstagramHome extends StatelessWidget {
   }
 
   Widget _buildBody(ThemeData theme) {
-    return Container(
-      color: theme.appBarTheme.backgroundColor,
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.network(
-                "https://lh3.googleusercontent.com/a/ACg8ocIWlm759imDIpePAUHnhMD__szZpWf2DKsv986ZXabj0iljIq8=s576-c-no",
-                width: 410,
-                fit: BoxFit.cover),
-          ],
-        ),
+    return Expanded(
+      child: Column(
+        children: [
+          Expanded(child: MenuScreen()), // Ensure MenuScreen expands correctly
+          Expanded(child: CardUserScreen()), // Ensure MenuScreen expands correctly
+        ],
       ),
     );
   }
@@ -89,7 +85,7 @@ class InstagramHome extends StatelessWidget {
           border: Border(
             top: BorderSide(
               color: themeLogic.mode == ThemeMode.dark
-                  ? Colors.grey.shade900
+                  ? Colors.grey.shade800
                   : Colors.grey.shade200,
             ),
           ),
