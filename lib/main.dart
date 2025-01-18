@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_assignment/theme/theme_constants.dart';
+// import 'package:mobile_app_assignment/theme/theme_constants.dart';
 import 'package:mobile_app_assignment/theme/theme_provioder.dart';
 import 'package:provider/provider.dart';
 import 'homeScreen/home_screen.dart';
@@ -17,6 +17,7 @@ class InstagramApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeLogic = Provider.of<ThemeLogic>(context);
     return MaterialApp(
+      debugShowCheckedModeBanner: false, 
       home: const InstagramHome(),
       theme: themeLogic.lightTheme, // Light theme
       darkTheme: themeLogic.darkTheme, // Dark theme
