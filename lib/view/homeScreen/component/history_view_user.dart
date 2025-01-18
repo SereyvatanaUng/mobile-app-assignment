@@ -1,4 +1,4 @@
-import 'package:mobile_app_assignment/homeScreen/image_data.dart';
+import 'image_data.dart';
 import 'package:flutter/material.dart';
 
 class MenuScreen extends StatefulWidget {
