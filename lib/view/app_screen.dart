@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_assignment/view/app_screen_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../theme/theme_provioder.dart';
 import 'homeScreen/home_screen.dart';
 
@@ -27,9 +26,8 @@ class AppScreen extends StatelessWidget {
         index: provider.currentIndex,
         children: _screens,
       ),
-      bottomNavigationBar: provider.isBottomNavRequired
-          ? _bottomNavBar(context)
-          : null, // Don't show BottomNavigationBar for non-bottom navigation screens
+      bottomNavigationBar:
+          provider.isBottomNavRequired ? _bottomNavBar(context) : null,
     );
   }
 
@@ -37,67 +35,71 @@ class AppScreen extends StatelessWidget {
     AppScreenProvider provider = context.watch<AppScreenProvider>();
     ThemeLogic themeLogic = context.watch<ThemeLogic>();
     ThemeData theme = Theme.of(context);
-    return BottomNavigationBar(
-      currentIndex: provider.currentIndex,
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey[800],
-      onTap: (index) => provider.updateIndex(index),
-      items: [
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.home_filled),
-          label: ''
-          // color: theme.appBarTheme.foregroundColor,
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: themeLogic.mode == ThemeMode.dark
+                ? Colors.grey.shade900
+                : Colors.grey.shade200,
+          ),
         ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.search),
-          label: ''
-          // color: theme.appBarTheme.foregroundColor,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.add),
-          label: ''
-          // color: theme.appBarTheme.foregroundColor,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.slow_motion_video_sharp),
-          label: ''
-          // color: theme.appBarTheme.foregroundColor,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.account_circle),
-          label: ''
-          // color: theme.appBarTheme.foregroundColor,
-        ),
-      ],
+      ),
+      child: BottomNavigationBar(
+        currentIndex: provider.currentIndex,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: theme.appBarTheme.foregroundColor,
+        unselectedItemColor: theme.iconTheme.color,
+        onTap: (index) => provider.updateIndex(index),
+        items: [
+          BottomNavigationBarItem(
+            icon: SizedBox(
+              width: 25,
+              child: Image.asset('lib/assets/fi_home.png',
+              color: provider.currentIndex == 0
+                    ? theme.appBarTheme.foregroundColor 
+                    : theme.iconTheme.color,
+              fit: BoxFit.contain, ),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SizedBox(
+              width: 25, 
+              child: Image.asset(
+                'lib/assets/fi_search.png',
+                color: provider.currentIndex == 1
+                    ? theme.appBarTheme.foregroundColor 
+                    : theme.iconTheme.color,
+                fit: BoxFit.contain, 
+              ),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add, size: 28),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SizedBox(
+              width: 25, 
+              child: Image.asset(
+                'lib/assets/fi_play-circle.png',
+                color: provider.currentIndex == 3
+                    ? theme.appBarTheme.foregroundColor
+                    : theme.iconTheme.color,
+                fit: BoxFit.contain, 
+              ),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle, size: 28),
+            label: '',
+          ),
+        ],
+      ),
     );
   }
 }
-
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-//
-// import '../theme/theme_provioder.dart';
-//
-// class AppScreen extends StatefulWidget {
-//
-//
-//   @override
-//   State<AppScreen> createState() => _State();
-// }
-//
-// class _State extends State<AppScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final themeLogic = Provider.of<ThemeLogic>(context);
-//
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: AppScreen(),
-//       theme: themeLogic.lightTheme, // Light theme
-//       darkTheme: themeLogic.darkTheme, // Dark theme
-//       themeMode: themeLogic.mode,
-//     );
-//   }
-// }
