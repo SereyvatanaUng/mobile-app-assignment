@@ -1,14 +1,13 @@
-import 'image_data.dart';
 import 'package:flutter/material.dart';
 
-class MenuScreen extends StatefulWidget {
-  const MenuScreen({super.key});
+class HistoryViewUser extends StatefulWidget {
+  const HistoryViewUser({super.key});
 
   @override
-  State<MenuScreen> createState() => _MenuScreenState();
+  State<HistoryViewUser> createState() => _HistoryViewUserState();
 }
 
-class _MenuScreenState extends State<MenuScreen> {
+class _HistoryViewUserState extends State<HistoryViewUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,66 +20,61 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildViewList() {
-    return ListView(
-      padding: const EdgeInsets.all(10),
-      physics: const BouncingScrollPhysics(),
-      children: [
-        _buildSection(imgKhmer, 90, 90),
-      ],
-    );
-  }
-
-  Widget _buildSection(List<String> imageList, double height, double width) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildViewListNew(imageList, height, width),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
-
-  Widget _buildViewListNew(
-      List<String> imageList, double height, double width) {
-    return SizedBox(
-      height: height,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        itemCount: imageList.length,
-        itemBuilder: (context, index) {
-          return Container(
-            width: width,
-            margin: const EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 5,
-                color: Colors.transparent,
-              ),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFFFEDA75), 
-                  Color(0xFFFA7E1E), 
-                  Color(0xFFD62976), 
-                  Color(0xFF962FBF), 
-                  Color(0xFF4F5BD5), 
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Horizontal scrollable section for profile image
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    width: 68,
+                    height: 68,
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0XFFDE0046),
+                          Color(0XFFF7A34B),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: ClipOval(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.white,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(34),
+                          child: Image.network(
+                            'https://i.pinimg.com/736x/1f/7c/7f/1f7c7f46af1b33ebe7e4bc9d7482f63d.jpg',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.network(
-                imageList[index],
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.error),
               ),
             ),
-          );
-        },
+          ),
+          // User name or description text
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "User Name", // Replace with dynamic user data if available
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

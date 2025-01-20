@@ -35,8 +35,8 @@ class AppScreen extends StatelessWidget {
     AppScreenProvider provider = context.watch<AppScreenProvider>();
     ThemeLogic themeLogic = context.watch<ThemeLogic>();
     ThemeData theme = Theme.of(context);
-
     return Container(
+      height: 100,
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(

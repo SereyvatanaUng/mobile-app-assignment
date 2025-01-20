@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Expanded(child: MenuScreen()), // Ensure MenuScreen expands correctly
+          Expanded(child: HistoryViewUser()), // Ensure MenuScreen expands correctly
           Expanded(child: CardUserScreen()), // Ensure MenuScreen expands correctly
         ],
       ),
