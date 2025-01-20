@@ -50,7 +50,7 @@ class _HistoryViewUserState extends State<HistoryViewUser> {
                           color: Colors.white,
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(34),
+                          borderRadius: BorderRadius.circular(200),
                           child: Image.network(
                             'https://i.pinimg.com/736x/1f/7c/7f/1f7c7f46af1b33ebe7e4bc9d7482f63d.jpg',
                           ),
