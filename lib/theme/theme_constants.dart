@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
-// This is LightTheme config use
 class AppThemes {
+  // Light Theme Configuration
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
     ),
-    iconTheme: const IconThemeData(
-      color: Colors.black,
+    iconTheme: IconThemeData(
+      color: Colors.grey[600],
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.black),
@@ -17,22 +16,19 @@ class AppThemes {
   );
 
 
-  
 
-  // This is DarkTheme config use
+  // Dark Theme Configuration
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
     ),
-    iconTheme: const IconThemeData(
-      color: Colors.white,
+    iconTheme: IconThemeData(
+      color: Colors.grey[400],
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.white),
     ),
   );
 }
-
-
