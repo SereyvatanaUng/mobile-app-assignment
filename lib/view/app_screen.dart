@@ -36,7 +36,7 @@ class AppScreen extends StatelessWidget {
     ThemeLogic themeLogic = context.watch<ThemeLogic>();
     ThemeData theme = Theme.of(context);
     return Container(
-      height: 100,
+      height: 60,
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
@@ -50,6 +50,7 @@ class AppScreen extends StatelessWidget {
         currentIndex: provider.currentIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: theme.appBarTheme.foregroundColor,
+        selectedFontSize: 0,
         unselectedItemColor: theme.iconTheme.color,
         onTap: (index) => provider.updateIndex(index),
         items: [
