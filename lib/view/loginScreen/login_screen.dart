@@ -11,51 +11,153 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
   bool _isLoading = false;
   String _errorMessage = '';
+  String _selectedLanguage = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Username field
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            SizedBox(height: 16),
-            // Password field
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(labelText: 'Password'),
-            ),
-            SizedBox(height: 16),
-            // Error message
-            if (_errorMessage.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: Text(
-                  _errorMessage,
-                  style: TextStyle(color: Colors.red),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [
+                      Color(0xFFDE0046),
+                      Color(0xFFF7A34B),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ).createShader(bounds),
+                  blendMode: BlendMode.srcIn,
+                  child: Image.asset(
+                    'lib/assets/fi_instagram.png',
+                    height: 50,
+                  ),
                 ),
-              ),
-            // Login button
-            _isLoading
-                ? CircularProgressIndicator()
-                : ElevatedButton(
-              onPressed: _handleLogin,
-              child: Text('Login'),
+                const SizedBox(height: 20),
+                DropdownButton<String>(
+                  value: _selectedLanguage,
+                  items: const [
+                    DropdownMenuItem(
+                      value: "English (UK)",
+                      child: Text("English (UK)"),
+                    ),
+                    DropdownMenuItem(
+                      value: "English (US)",
+                      child: Text("English (US)"),
+                    ),
+                    DropdownMenuItem(
+                      value: "Français",
+                      child: Text("Français"),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedLanguage = value!;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Login",
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: "Email, Username, or Mobile phone number",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _isLoading ? null : _handleLogin,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                    minimumSize: const Size(double.infinity, 50),
+                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          "Log in",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                ),
+                if (_errorMessage.isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  Text(
+                    _errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ],
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    // TODO: Navigate to Forgot Password screen
+                  },
+                  child: const Text(
+                    "Forgotten Password?",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    // TODO: Navigate to Sign Up screen
+                  },
+                  child: const Text(
+                    "Create new account",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'lib/assets/Meta_logo.png',
+                      height: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      "Meta",
+                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -77,7 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
     // Check login status after attempting login
     Future.delayed(Duration(seconds: 1), () {
       if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn) {
-        Navigator.pushReplacementNamed(context, '/'); // Navigate to the main screen
+        Navigator.pushReplacementNamed(
+            context, '/'); // Navigate to the main screen
       } else {
         setState(() {
           _isLoading = false;
