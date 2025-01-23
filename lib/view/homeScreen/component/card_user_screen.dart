@@ -45,7 +45,7 @@ class _CardUserScreenState extends State<CardUserScreen> {
             width: double.infinity,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -111,7 +111,7 @@ class _CardUserScreenState extends State<CardUserScreen> {
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: Row(children: [
                       const CircleAvatar(
                         radius: 15,
