@@ -13,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
   String _errorMessage = '';
-  String _selectedLanguage = '';
+  String? _selectedLanguage;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 DropdownButton<String>(
+                  hint: const Text("Select Language"),
                   value: _selectedLanguage,
                   items: const [
                     DropdownMenuItem(
@@ -102,10 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: _isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
-                          "Log in",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      : const Text("Log in"),
                 ),
                 if (_errorMessage.isNotEmpty) ...[
                   const SizedBox(height: 10),
@@ -163,30 +161,43 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Handle the login logic
-  void _handleLogin() {
+  void _handleLogin() async {
     setState(() {
       _isLoading = true;
       _errorMessage = ''; // Clear any previous error message
     });
 
-    final String username = _usernameController.text;
-    final String password = _passwordController.text;
+    final String username = _usernameController.text.trim();
+    final String password = _passwordController.text.trim();
 
-    // Using the AuthProvider to handle login logic
-    Provider.of<AuthProvider>(context, listen: false).login(username, password);
+    if (username.isEmpty || password.isEmpty) {
+      setState(() {
+        _isLoading = false;
+        _errorMessage = 'Username and password cannot be empty.';
+      });
+      return;
+    }
 
-    // Check login status after attempting login
-    Future.delayed(Duration(seconds: 1), () {
-      if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn) {
-        Navigator.pushReplacementNamed(
-            context, '/'); // Navigate to the main screen
+    try {
+      await Future.delayed(Duration(seconds: 1)); // Simulating a network delay
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      authProvider.login(username, password);
+
+      if (authProvider.isLoggedIn) {
+        Navigator.pushReplacementNamed(context, '/'); // Navigate to the main screen
       } else {
         setState(() {
-          _isLoading = false;
           _errorMessage = 'Invalid credentials. Please try again.';
         });
       }
-    });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'An unexpected error occurred. Please try again.';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }
