@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:mobile_app_assignment/theme/theme_provioder.dart'; // Ensure this file name is correct
 
 class HistoryViewUser extends StatefulWidget {
   const HistoryViewUser({super.key});
@@ -10,9 +12,7 @@ class HistoryViewUser extends StatefulWidget {
 class _HistoryViewUserState extends State<HistoryViewUser> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildBody(),
-    );
+    return _buildBody();
   }
 
   Widget _buildBody() {
@@ -20,61 +20,113 @@ class _HistoryViewUserState extends State<HistoryViewUser> {
   }
 
   Widget _buildViewList() {
+    final themeLogic =
+        Provider.of<ThemeLogic>(context); // Correct Provider usage
+
+    // List of sample profiles
+    final List<Map<String, String>> profiles = [
+      {
+        'name': 'Your Story',
+        'imageUrl':
+            'https://i.pinimg.com/736x/41/49/3f/41493f14c62a532266f742584736e876.jpg'
+      },
+      {
+        'name': 'John Doe',
+        'imageUrl': 'https://i.pinimg.com/736x/fa/8b/e4/fa8be41486f9cbb1d3626aeac68d8ce5.jpg'
+      },
+      {
+        'name': 'Jane Smith',
+        'imageUrl': 'https://i.pinimg.com/736x/d8/6e/97/d86e974acb88a2c14bf6402f176c2cc6.jpg'
+      },
+      {
+        'name': 'Your Story',
+        'imageUrl':
+            'https://i.pinimg.com/736x/60/3f/c6/603fc6eb970de1c7eaac26c8c6da1126.jpg'
+      },
+      {
+        'name': 'John Doe',
+        'imageUrl': 'https://i.pinimg.com/736x/3b/31/d4/3b31d4d5c173381a248b037be2208249.jpg'
+      },
+      {
+        'name': 'Jane Smith',
+        'imageUrl': 'https://i.pinimg.com/736x/87/7f/da/877fda4259fcaddb8833fe8775f83035.jpg'
+      },
+      {
+        'name': 'Your Story',
+        'imageUrl':
+            'https://i.pinimg.com/736x/16/0e/d9/160ed9b1029d84c00b761c7f30ebba5c.jpg'
+      },
+      {
+        'name': 'John Doe',
+        'imageUrl': 'https://i.pinimg.com/736x/ac/96/a8/ac96a85fa256de2f832a3641765b0d56.jpg'
+      },
+      {
+        'name': 'Jane Smith',
+        'imageUrl': 'https://i.pinimg.com/736x/33/8f/e6/338fe651e97c686dd08aec020502ec2e.jpg'
+      },
+      // Add more profiles as needed
+    ];
+
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          // Horizontal scrollable section for profile image
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 68,
-                    height: 68,
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0XFFDE0046),
-                          Color(0XFFF7A34B),
-                        ],
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: profiles.map((profile) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 16),
+                // Space between items
+                child: Column(
+                  children: [
+                    Container(
+                      width: 68,
+                      height: 68,
+                      padding: const EdgeInsets.all(2.3),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFFDE0046),
+                            Color(0xFFF7A34B),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: ClipOval(
                       child: Container(
+                        padding: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
+                          shape: BoxShape.circle,
                           color: Colors.white,
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(34),
+                          borderRadius: BorderRadius.circular(50),
                           child: Image.network(
-                            'https://i.pinimg.com/736x/1f/7c/7f/1f7c7f46af1b33ebe7e4bc9d7482f63d.jpg',
+                            profile['imageUrl']!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.error, size: 50);
+                            },
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                    const SizedBox(height: 4),
+                    Text(
+                      profile['name']!,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: themeLogic.mode == ThemeMode.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
           ),
-          // User name or description text
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "User Name", // Replace with dynamic user data if available
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
