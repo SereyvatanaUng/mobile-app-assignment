@@ -9,10 +9,10 @@ import 'homeScreen/home_screen.dart';
 class AppScreen extends StatelessWidget {
   final List<Widget> _screens = [
     HomeScreen(),
-    Container(),
+    Container(child: Center(child: Text('Search Screen Placeholder'))),
     AddPostScreen(),
-    Container(),
-    Container(),
+    Container(child: Center(child: Text('Play Screen Placeholder'))),
+    Container(child: Center(child: Text('Account Screen Placeholder'))),
   ];
 
   @override
