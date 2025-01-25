@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppScreenProvider extends ChangeNotifier {
   int _currentIndex = 0;
-  bool _isBottomNavRequired = true; // Flag to determine if bottom nav is required
+  bool _isBottomNavRequired =
+      true; // Flag to determine if bottom nav is required
 
   int get currentIndex => _currentIndex;
   bool get isBottomNavRequired => _isBottomNavRequired;
@@ -13,6 +14,7 @@ class AppScreenProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   void toggleBottomNav(bool value) {
     _isBottomNavRequired = value;
     notifyListeners();
