@@ -69,7 +69,7 @@ class _HistoryViewUserState extends State<HistoryViewUser> {
 
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding:const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
