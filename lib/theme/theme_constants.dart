@@ -13,6 +13,9 @@ class AppThemes {
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.black),
     ),
+    // iconAppBarTheme: IconThemeData(
+    //   color: Color.
+    // )
   );
 
 
