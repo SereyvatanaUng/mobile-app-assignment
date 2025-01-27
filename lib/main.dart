@@ -33,8 +33,9 @@ class InstagramApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Consumer<AuthProvider>(
-          builder: (context, auth, _) => auth.isLoggedIn ? AppScreen() : LoginScreen(),
-        ),
+              builder: (context, auth, _) =>
+                  auth.isLoggedIn ? AppScreen() : LoginScreen(),
+            ),
       },
     );
   }

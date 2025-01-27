@@ -12,8 +12,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ScrollController _scrollController;
-  bool _showHeader = true; // Controls visibility of the HeaderApp
-  final double _headerHeight = 120; // Height of the HeaderApp
+  bool _showHeader = true;
+  double _headerHeight = 100;
 
   @override
   void initState() {
@@ -23,14 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _scrollListener() {
-    // Check scroll direction and update the header visibility
     if (_scrollController.position.userScrollDirection ==
         ScrollDirection.reverse) {
-      // Scrolling down
       if (_showHeader) setState(() => _showHeader = false);
     } else if (_scrollController.position.userScrollDirection ==
         ScrollDirection.forward) {
-      // Scrolling up
       if (!_showHeader) setState(() => _showHeader = true);
     }
   }
