@@ -1,6 +1,6 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_assignment/view/app_screen_provider.dart';
+import 'package:mobile_app_assignment/view/notificationScreen/notification_screen.dart';
 import 'package:mobile_app_assignment/view/profileScreen/profile_screen.dart';
 import 'package:provider/provider.dart';
 import '../theme/theme_provioder.dart';
@@ -13,18 +13,13 @@ class AppScreen extends StatelessWidget {
     ProfileScreen(),
     ProfileScreen(),
     ProfileScreen(),
+    NotificationScreen()
   ];
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     AppScreenProvider provider = Provider.of<AppScreenProvider>(context);
-
-    // Conditionally update the state if the screen needs BottomNavigationBar or not
-    // if (provider.currentIndex == 2) { // Example: Index 2 corresponds to the Details screen
-    //   provider.toggleBottomNav(false); // Disable BottomNavigationBar for this screen
-    // } else {
-    //   provider.toggleBottomNav(true); // Enable BottomNavigationBar for other screens
-    // }
 
     return Scaffold(
       body: IndexedStack(
@@ -32,7 +27,7 @@ class AppScreen extends StatelessWidget {
         children: _screens,
       ),
       bottomNavigationBar:
-          provider.isBottomNavRequired ? _bottomNavBar(context) : null,
+      provider.isBottomNavRequired ? _bottomNavBar(context) : null,
     );
   }
 
@@ -40,6 +35,7 @@ class AppScreen extends StatelessWidget {
     AppScreenProvider provider = context.watch<AppScreenProvider>();
     ThemeLogic themeLogic = context.watch<ThemeLogic>();
     ThemeData theme = Theme.of(context);
+
     return Container(
       height: 100,
       decoration: BoxDecoration(
@@ -62,23 +58,25 @@ class AppScreen extends StatelessWidget {
           BottomNavigationBarItem(
             icon: SizedBox(
               width: 25,
-              child: Image.asset('lib/assets/fi_home.png',
-              color: provider.currentIndex == 0
-                    ? theme.appBarTheme.foregroundColor 
+              child: Image.asset(
+                'lib/assets/fi_home.png',
+                color: provider.currentIndex == 0
+                    ? theme.appBarTheme.foregroundColor
                     : theme.iconTheme.color,
-              fit: BoxFit.contain, ),
+                fit: BoxFit.contain,
+              ),
             ),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: SizedBox(
-              width: 25, 
+              width: 25,
               child: Image.asset(
                 'lib/assets/fi_search.png',
                 color: provider.currentIndex == 1
-                    ? theme.appBarTheme.foregroundColor 
+                    ? theme.appBarTheme.foregroundColor
                     : theme.iconTheme.color,
-                fit: BoxFit.contain, 
+                fit: BoxFit.contain,
               ),
             ),
             label: '',
@@ -89,13 +87,13 @@ class AppScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: SizedBox(
-              width: 25, 
+              width: 25,
               child: Image.asset(
                 'lib/assets/fi_play-circle.png',
                 color: provider.currentIndex == 3
                     ? theme.appBarTheme.foregroundColor
                     : theme.iconTheme.color,
-                fit: BoxFit.contain, 
+                fit: BoxFit.contain,
               ),
             ),
             label: '',
