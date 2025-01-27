@@ -6,7 +6,7 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoggedIn => _isLoggedIn;
 
   void login(String username, String password) {
-    if(username == "you" && password == "you"){
+    if(username == "1" && password == "1"){
       _isLoggedIn = true;
       notifyListeners();
     }

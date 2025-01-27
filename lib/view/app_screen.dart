@@ -1,6 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_assignment/view/app_screen_provider.dart';
+import 'package:mobile_app_assignment/view/profileScreen/profile_screen.dart';
 import 'package:provider/provider.dart';
 import '../theme/theme_provioder.dart';
 import 'homeScreen/home_screen.dart';
@@ -8,6 +9,10 @@ import 'homeScreen/home_screen.dart';
 class AppScreen extends StatelessWidget {
   final List<Widget> _screens = [
     HomeScreen(),
+    ProfileScreen(),
+    ProfileScreen(),
+    ProfileScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -50,6 +55,7 @@ class AppScreen extends StatelessWidget {
         currentIndex: provider.currentIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: theme.appBarTheme.foregroundColor,
+        selectedFontSize: 0,
         unselectedItemColor: theme.iconTheme.color,
         onTap: (index) => provider.updateIndex(index),
         items: [
