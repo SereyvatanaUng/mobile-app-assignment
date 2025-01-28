@@ -12,8 +12,7 @@ class AppScreen extends StatelessWidget {
     HomeScreen(),
     SearchScreen(),
     AddPostScreen(),
-    Container(child: Center(child: Text('Play Screen Placeholder'))),
-    Container(child: Center(child: Text('Account Screen Placeholder'))),
+    ProfileScreen()
   ];
 
   @override
@@ -93,18 +92,9 @@ class AppScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.play_circle,
-              color: provider.currentIndex == 3
-                  ? theme.appBarTheme.foregroundColor
-                  : theme.iconTheme.color,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
               Icons.account_circle,
               size: 28,
-              color: provider.currentIndex == 4
+              color: provider.currentIndex == 3
                   ? theme.appBarTheme.foregroundColor
                   : theme.iconTheme.color,
             ),
