@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app_assignment/view/addPostScreen/add_post_screen.dart';
 import 'package:mobile_app_assignment/view/app_screen_provider.dart';
 import 'package:mobile_app_assignment/view/profileScreen/profile_screen.dart';
+import 'package:mobile_app_assignment/view/searchScreen/search_screen.dart';
 import 'package:provider/provider.dart';
 import '../theme/theme_provioder.dart';
 import 'homeScreen/home_screen.dart';
@@ -9,7 +10,7 @@ import 'homeScreen/home_screen.dart';
 class AppScreen extends StatelessWidget {
   final List<Widget> _screens = [
     HomeScreen(),
-    Container(child: Center(child: Text('Search Screen Placeholder'))),
+    SearchScreen(),
     AddPostScreen(),
     Container(child: Center(child: Text('Play Screen Placeholder'))),
     Container(child: Center(child: Text('Account Screen Placeholder'))),
