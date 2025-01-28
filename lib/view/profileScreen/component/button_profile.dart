@@ -31,7 +31,7 @@ class _ButtonProfileState extends State<ButtonProfile> {
                     backgroundColor:
                     theme.appBarTheme.backgroundColor ?? theme.primaryColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                   ),
                   child: Text(
