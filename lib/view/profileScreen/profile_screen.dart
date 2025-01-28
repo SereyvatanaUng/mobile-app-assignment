@@ -1,88 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_assignment/theme/theme_provioder.dart';
-import 'package:provider/provider.dart';
-
+import 'package:flutter/rendering.dart';
+import 'package:mobile_app_assignment/view/profileScreen/component/button_profile.dart';
+import 'component/header_app_profileuser.dart';
 import 'component/information_user.dart';
 import 'component/upload_post_user.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final themeLogic = Provider.of<ThemeLogic>(context);
+  late ScrollController _scrollController;
+  bool _showHeader = true; // Controls visibility of the HeaderAppProfileUser
+  final double _headerHeight = 120; // Height of the header
 
-    return Scaffold(
-      appBar: _buildAppBar(context, theme, themeLogic),
-      body: SingleChildScrollView(
-        // Added to prevent overflow in case content exceeds screen size
-        child: Column(
-          children: const [
-            RepaintBoundary(child: InformationUser()),
-            RepaintBoundary(child: UploadPostUser()),
-          ],
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
   }
 
-  AppBar _buildAppBar(
-      BuildContext context, ThemeData theme, ThemeLogic themeLogic) {
-    return AppBar(
-      title: Row(
+  void _scrollListener() {
+    if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      if (_showHeader) setState(() => _showHeader = false);
+    } else if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.forward) {
+      if (!_showHeader) setState(() => _showHeader = true);
+    }
+  }
+
+  void _scrollToTop() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 1.0), // Space only on the left side of the text
-            child: Text(
-              '27.meee',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+          // Main content with scrolling
+          ListView(
+            controller: _scrollController,
+            padding: EdgeInsets.only(top: _headerHeight),
+            children: const [
+              RepaintBoundary(child: InformationUser()),
+              RepaintBoundary(child: ButtonProfile()),
+              RepaintBoundary(child: UploadPostUser()),
+            ],
+          ),
+          // Animated header
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            top: _showHeader ? 0 : -_headerHeight, // Show/hide the header
+            left: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: _scrollToTop, // Scroll to top on header tap
+              child: Container(
+                height: _headerHeight,
+                color: Colors.white,
+                child: const RepaintBoundary(child: HeaderAppProfileUser()),
               ),
             ),
           ),
-          IconButton(
-            icon: Image.asset(
-              'lib/assets/chevron-down.png',
-              color: theme.appBarTheme.foregroundColor,
-              width: 23,
-            ),
-            onPressed: () {},
-          ),
         ],
       ),
-      actions: [
-        IconButton(
-          icon: Image.asset(
-            'lib/assets/threads.png',
-            color: theme.appBarTheme.foregroundColor,
-            width: 25,
-          ),
-          iconSize: 20,
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: const Icon(Icons.add),
-          iconSize: 28,
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Image.asset(
-            'lib/assets/fi_menu.png',
-            color: theme.appBarTheme.foregroundColor,
-            width: 25,
-          ),
-          iconSize: 20,
-          onPressed: () {},
-        ),
-      ],
     );
   }
 }

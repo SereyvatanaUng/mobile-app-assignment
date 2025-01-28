@@ -30,5 +30,6 @@ class AppThemes {
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.white),
     ),
+
   );
 }
