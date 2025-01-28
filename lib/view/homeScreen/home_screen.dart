@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
               ),
-              itemCount: 10,
+              itemCount: 13,
               separatorBuilder: (context, index) => const Divider(
                 thickness: 0,
                 color: Colors.transparent,

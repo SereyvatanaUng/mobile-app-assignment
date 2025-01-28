@@ -25,7 +25,7 @@ class _InformationUserState extends State<InformationUser> {
             children: [
               ClipOval(
                 child: Image.network(
-                  "https://instagram.fpnh5-2.fna.fbcdn.net/v/t51.2885-19/470335716_543213718702689_3471928630048107268_n.jpg?_nc_ht=instagram.fpnh5-2.fna.fbcdn.net&_nc_cat=109&_nc_oc=Q6cZ2AG18GqkS2_hXQUaYbIdi9LoNCXZqlNb_S6E9ayoshx3IbuiRO5JTimrD2728nBfPpk&_nc_ohc=5kh5VLUcogkQ7kNvgGuy7jQ&_nc_gid=16ddcbef2bfb4123a9ffaad1c74e7d37&edm=ALGbJPMBAAAA&ccb=7-5&oh=00_AYC4ujVZ67j1QBlLdO8AL1_UVrA0f0EY0peS6T-AzdI-GQ&oe=679B07C0&_nc_sid=7d3ac5",
+                  'https://i.pinimg.com/736x/c2/fd/c7/c2fdc709237d8637de99fd11a153335b.jpg',
                   height: 100,
                   width: 100,
                   fit: BoxFit.cover,
