@@ -11,6 +11,36 @@ class NotificationScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final List<Map<String, dynamic>> notifications = [
       {
+        "title":
+            "lucas_sky, sarah_moon, and others want to follow you on Threads, Instagram's new text app.",
+        "profileImage": [
+          "https://i.pinimg.com/736x/ac/96/a8/ac96a85fa256de2f832a3641765b0d56.jpg"
+        ],
+        "time": "5m",
+        "isFollowable": true,
+        "hasStory": false
+      },
+      {
+        "title":
+            "john_doe, jane_smith, and others want to follow you on Threads, Instagram's new text app.",
+        "profileImage": [
+          "https://i.pinimg.com/736x/fa/8b/e4/fa8be41486f9cbb1d3626aeac68d8ce5.jpg"
+        ],
+        "time": "12m",
+        "isFollowable": true,
+        "hasStory": false
+      },
+      {
+        "title":
+            "alex_rock, emily_bright, and others want to follow you on Threads, Instagram's new text app.",
+        "profileImage": [
+          "https://i.pinimg.com/736x/24/8b/66/248b6652fffd4cdbb117e7ea7757c0f4.jpg"
+        ],
+        "time": "25m",
+        "isFollowable": false,
+        "hasStory": true
+      },
+      {
         'title':
             'ka_sokna, rin_vouchnea, and others want to follow you on Threads, Instagram\'s new text app.',
         'profileImage': [
@@ -23,20 +53,10 @@ class NotificationScreen extends StatelessWidget {
       {
         'title': 'sordavika, who you might know, is on Instagram.',
         'profileImage': [
-          'https://i.pinimg.com/736x/fa/8b/e4/fa8be41486f9cbb1d3626aeac68d8ce5.jpg',
           'https://i.pinimg.com/736x/fa/8b/e4/fa8be41486f9cbb1d3626aeac68d8ce5.jpg'
         ],
         'time': '1h',
         'isFollowable': true,
-      },
-      {
-        'title': '6.jan_ and 3 others recently added to their stories.',
-        'profileImage': [
-          'https://i.pinimg.com/736x/d8/6e/97/d86e974acb88a2c14bf6402f176c2cc6.jpg'
-        ],
-        'time': '13h',
-        'isFollowable': false,
-        'hasStory': true,
       },
       {
         'title': 'monyrethchan, who you might know, is on Instagram.',
@@ -49,6 +69,9 @@ class NotificationScreen extends StatelessWidget {
       },
       {
         'title': 'langoutdom, who you might know, is on Instagram.',
+        'profileImage': [
+          "https://i.pinimg.com/736x/24/8b/66/248b6652fffd4cdbb117e7ea7757c0f4.jpg"
+        ],
         'time': '2d',
         'isFollowable': true,
         'hasStory': false,
@@ -74,6 +97,26 @@ class NotificationScreen extends StatelessWidget {
         'hasStory': false,
       },
       {
+        "title":
+            "mia_sunshine, charlie_kay, and others want to follow you on Threads, Instagram's new text app.",
+        "profileImage": [
+          "https://i.pinimg.com/736x/87/7f/da/877fda4259fcaddb8833fe8775f83035.jpg"
+        ],
+        "time": "1h",
+        "isFollowable": false,
+        "hasStory": true
+      },
+      {
+        "title":
+            "noah_rain, sophia_glow, and others want to follow you on Threads, Instagram's new text app.",
+        "profileImage": [
+          "https://i.pinimg.com/736x/24/8b/66/248b6652fffd4cdbb117e7ea7757c0f4.jpg"
+        ],
+        "time": "3h",
+        "isFollowable": true,
+        "hasStory": false
+      },
+      {
         'title': 'tykhoeurn is on Instagram. ka_sokna follows them.',
         'profileImage': [
           'https://i.pinimg.com/736x/60/3f/c6/603fc6eb970de1c7eaac26c8c6da1126.jpg'
@@ -82,9 +125,18 @@ class NotificationScreen extends StatelessWidget {
         'isFollowable': true,
         'hasStory': false,
       },
+      {
+        'title': '6.jan_ and 3 others recently added to their stories.',
+        'profileImage': [
+          'https://i.pinimg.com/736x/d8/6e/97/d86e974acb88a2c14bf6402f176c2cc6.jpg'
+        ],
+        'time': '13h',
+        'isFollowable': false,
+        'hasStory': true,
+      },
     ];
 
-    // Group notifications by time categories
+    //TODO Group notifications by time categories
     final groupedNotifications = _groupNotificationsByTime(notifications);
 
     return Scaffold(
@@ -98,19 +150,16 @@ class NotificationScreen extends StatelessWidget {
     return AppBar(
       backgroundColor: theme.appBarTheme.backgroundColor,
       leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          color: theme.appBarTheme.foregroundColor,
-        ),
-        onPressed: () => Navigator.pop(context),
-      ),
+          onPressed: () => Navigator.pop(context),
+          icon: Image.asset("lib/assets/fi_chevron-left.png",
+              color: theme.appBarTheme.foregroundColor)),
       title: Text(
         title,
         style: TextStyle(
           color: theme.appBarTheme.foregroundColor,
         ),
       ),
-      centerTitle: true,
+      centerTitle: false,
     );
   }
 
@@ -142,6 +191,7 @@ class NotificationScreen extends StatelessWidget {
     final subtitleStyle = const TextStyle(color: Colors.grey, fontSize: 12);
 
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemCount: groupedNotifications.length,
       itemBuilder: (context, groupIndex) {
         final groupTitle = groupedNotifications.keys.elementAt(groupIndex);
@@ -184,7 +234,8 @@ class NotificationScreen extends StatelessWidget {
                         style: textStyle, // Style for the title
                       ),
                       TextSpan(
-                        text: " ${notification['time']}", // Add time with a dot separator
+                        text:
+                            " ${notification['time']}", // Add time with a dot separator
                         style: subtitleStyle, // Style for the time
                       ),
                     ],
@@ -198,8 +249,6 @@ class NotificationScreen extends StatelessWidget {
       },
     );
   }
-
-
 
   Widget? _buildTrailingWidget(Map<String, dynamic> notification) {
     if (notification['isFollowable'] == true) {
@@ -220,7 +269,7 @@ class NotificationScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.grey[800],
           foregroundColor: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 0),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
