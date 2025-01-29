@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_app_assignment/view/app_screen_provider.dart';
+import 'package:mobile_app_assignment/view/notificationScreen/notification_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../theme/theme_provioder.dart';
 
@@ -10,6 +12,7 @@ class HeaderApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final themeLogic = Provider.of<ThemeLogic>(context);
+    final AppScreenProvider _screen = Provider.of<AppScreenProvider>(context);
 
     return AppBar(
       title: Image.asset(
@@ -34,13 +37,16 @@ class HeaderApp extends StatelessWidget {
           icon: const Icon(Icons.favorite_border_rounded),
           iconSize: 28,
           color: theme.appBarTheme.foregroundColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+                builder: (context) => NotificationScreen(), maintainState: false));
+          },
         ),
         IconButton(
           icon: Image.asset(
-            'lib/assets/fi_send.png',
+            'lib/assets/send.png',
             color: theme.appBarTheme.foregroundColor,
-            width: 25,
+            width: 23,
           ),
           iconSize: 28, // Consistent icon size
           onPressed: () {},
