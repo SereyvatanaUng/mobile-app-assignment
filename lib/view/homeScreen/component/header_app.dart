@@ -44,9 +44,9 @@ class HeaderApp extends StatelessWidget {
         ),
         IconButton(
           icon: Image.asset(
-            'lib/assets/fi_send.png',
+            'lib/assets/send.png',
             color: theme.appBarTheme.foregroundColor,
-            width: 25,
+            width: 23,
           ),
           iconSize: 28, // Consistent icon size
           onPressed: () {},
